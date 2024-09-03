@@ -1,10 +1,23 @@
 # OnScreenOCR
+A powerful graphical on-screen optical character recognition (OCR) tool using Tesseract. I made this tool because I found places where I would like to improve existing tools like Microsoft PowerToys' "Text Extract" feature.
 
 <img src="images/logo.svg" width="350px">
 
-*Not my best logo design... I needed something for the system tray, though!*
+*Not my best logo design... I needed something for the system tray, though!*  
 
-A tool designed to mimic Microsoft PowerToys' "Text Extract feature", but with additional functionality:
+<ol>
+  <li><a href="#features">Features</a></li>
+  <li><a href="#pictures">Pictures</a></li>
+  <li><a href="#installation">Installation</a></li>
+  <li><a href="#configuration">Configuration</a></li>
+  <li><a href="#todo">TODO</a></li>
+  <li><a href="#development">Development</a></li>
+  <li><a href="#creating-the-installer">Creating the installer</a></li>
+</ol>
+
+## Features
+
+The features of OnScreenOCR include:
 - Fully GPU-accelerated rendering using wgpu
 - Multi-platform support: Windows, MacOS, and Linux (untested at the moment, some features TODO on other platforms)
 - Live preview of the OCR result
@@ -22,7 +35,7 @@ A tool designed to mimic Microsoft PowerToys' "Text Extract feature", but with a
 - Full undo/redo history
 - Stays in system tray when closed
 - Numerous intuitive selection-related interactions, including drawing outlines, shifting edges/vertices, removing edges/vertices, and more.
-
+- An installer that allows you to automatically start the application on boot
 
 ## Pictures
 ![A screenshot showing simple OCR capabilities](images/example1.png)
@@ -32,7 +45,8 @@ A tool designed to mimic Microsoft PowerToys' "Text Extract feature", but with a
 ## Installation
 You may download the application from the releases page.  
 Currently, I only distribute x64 Windows binaries (since support for other platforms is untested and some features are not implemented on other platforms).  
-The application is bundled as a single executable, so you can run it and it will create an icon in your tray while running. The default keybind is `Shift + Alt + Z`, but you may change this within the overlay.
+I distribute an installer (`OnScreenOCR.exe`) and a standalone executable (`OnScreenOCRStandalone.exe`).  
+The application will create an icon in your tray while running. The default keybind is `Shift + Alt + Z`, but you may change this within the overlay.
 
 ## Configuration
 Configuration files are stored under your user's configuration directory.  
@@ -49,8 +63,6 @@ Configuration files include:
 
 ## TODO
 - [ ] Add support for MacOS and Linux
-- [ ] Optionally automatically start on boot
-- [ ] Proper installer and uninstaller
 - [ ] Better documentation on how the interaction system, configuration, and probably other parts of the application work
 
 ## Development
@@ -73,3 +85,14 @@ Finally, you can run the project:
 ```bash
 cargo run
 ```
+
+## Creating the installer
+
+0. Install [Inno Setup 6](https://jrsoftware.org/isinfo.php)
+1. Build the program with `cargo build --release` and move the executable from `target/release/OnScreenOCR.exe` into this folder. Make sure it is called `OnScreenOCR.exe`.
+2. Open `OnScreenOCR.iss` in Inno Setup Compiler
+3. Change `MyAppVersion` to the current app version.
+4. Run Build -> Compile
+5. The installer will be placed in a folder called `Output`
+
+`installer/pre-install_message.txt` contains the message that is displayed before installation.
